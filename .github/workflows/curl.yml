@@ -39,3 +39,19 @@ jobs:
       working-directory: ./curl
       run: make test
 
+  build-on-fedora:
+
+    runs-on: ubuntu-latest
+    container: 
+      image: fedora:rawhide
+
+    steps:
+    - name: Install build toosl
+      run: sudo dnf install -y gcc gcc-c++ make autoconf automake libtool
+    - uses: actions/checkout@master
+    - name: autogen
+      run: ./autogen.sh
+    - name: configure
+      run: ./configure --enable-all
+    - name: make
+      run: make
